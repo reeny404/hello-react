@@ -2,66 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 
-class Square extends React.Component {
-    render() {
-        return (
-            <button className="square">
-                {/* TODO */}
-            </button>
-        );
-    }
-}
+class Clock extends React.Component<any, any> {
+    private timerId: any;
 
-class Board extends React.Component {
-    renderSquare(i: number) {
-        return <Square/>;
+    constructor(props: any) {
+        super(props);
+        this.state = {date : new Date()};
+        this.tick = this.tick.bind(this);
     }
 
-    render() {
-        const status = 'Next player: X';
+    componentDidMount() {
+        this.timerId = setInterval(() => this.tick(), 1000);
+    }
 
+    componentWillUnmount() {
+        clearInterval(this.timerId);
+    }
+
+    tick() {
+        this.setState({date : new Date()});
+    }
+
+    render() {
+        // return <input name={this.props.name} placeholder={this.props.placeholder}/>
         return (
             <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
+                <h1>Hello, World!</h1>
+                <h2>It is {this.state.date.toLocaleTimeString()}!</h2>
             </div>
-        );
+        )
     }
 }
-
-class Game extends React.Component {
-    render() {
-        return (
-            <div className="game">
-                <div className="game-board">
-                    <Board/>
-                </div>
-                <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
-                </div>
-            </div>
-        );
-    }
-}
-
-// ========================================
 
 ReactDOM.render(
-    <Game/>,
+    <Clock/>,
     document.getElementById('root')
 );
