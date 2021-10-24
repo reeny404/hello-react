@@ -24,7 +24,6 @@ class Clock extends React.Component<any, any> {
     }
 
     render() {
-        // return <input name={this.props.name} placeholder={this.props.placeholder}/>
         return (
             <div>
                 <h1>Hello, World!</h1>
